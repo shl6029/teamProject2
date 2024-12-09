@@ -1,32 +1,165 @@
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: #f0f0f0;
-      font-family: Arial, sans-serif;
-    }
+/* 전체 배경을 크리스마스 느낌으로 */
+body {
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background: linear-gradient(45deg, #ff4e50, #ffbd69);
+   /* 빨강과 초록 그라디언트 */
+   font-family: 'Arial', sans-serif;
+   background-size: 400% 400%;
+   animation: gradientAnimation 5s ease infinite;
+}
 
-    canvas {
-      display: block;
-      background-color: #fff;
-      margin: 0 auto;
-    }
+@keyframes gradientAnimation {
+   0% {
+      background-position: 0% 50%;
+   }
 
-    #game-over {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 30px;
-      font-weight: bold;
-      color: #333;
-      display: none;
-    }
+   50% {
+      background-position: 100% 50%;
+   }
 
-    #score {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 20px;
-      color: #333;
-    }
+   100% {
+      background-position: 0% 50%;
+   }
+}
+
+/* 눈 내리는 효과 */
+.snowflake {
+   position: absolute;
+   top: -10px;
+   /* 화면 상단에서 시작 */
+   background-color: #fff;
+   border-radius: 50%;
+   opacity: 0.8;
+   animation: snowfall 10s linear infinite;
+}
+
+@keyframes snowfall {
+   0% {
+      transform: translateX(0) translateY(0);
+      /* 눈송이 초기 위치 */
+   }
+
+   100% {
+      transform: translateX(calc(100vw - 20px)) translateY(calc(100vh + 20px));
+      /* 화면 하단까지 떨어지게 */
+   }
+}
+
+/* 다양한 크기와 속도로 눈송이 생성 */
+.snowflake:nth-child(1) {
+   width: 8px;
+   height: 8px;
+   animation-duration: 8s;
+   animation-delay: -2s;
+}
+
+.snowflake:nth-child(2) {
+   width: 12px;
+   height: 12px;
+   animation-duration: 12s;
+   animation-delay: -4s;
+}
+
+.snowflake:nth-child(3) {
+   width: 6px;
+   height: 6px;
+   animation-duration: 10s;
+   animation-delay: -3s;
+}
+
+.snowflake:nth-child(4) {
+   width: 10px;
+   height: 10px;
+   animation-duration: 9s;
+   animation-delay: -1s;
+}
+
+/* 캔버스를 화면 중앙에 배치하고 스타일링 */
+canvas {
+   display: block;
+   background-color: #ffffff;
+   margin: 0 auto;
+   border-radius: 10px;
+   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 게임 오버 텍스트 디자인 */
+#game-over {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 40px;
+   font-weight: bold;
+   color: #fff;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+   background-color: rgba(0, 0, 0, 0.5);
+   padding: 20px;
+   border-radius: 10px;
+   display: none;
+   animation: gameOverAnimation 1s ease-in-out;
+}
+
+@keyframes gameOverAnimation {
+   0% {
+      transform: translate(-50%, -50%) scale(0.5);
+   }
+
+   100% {
+      transform: translate(-50%, -50%) scale(1);
+   }
+}
+
+/* 점수 텍스트 스타일 */
+#score {
+   position: absolute;
+   top: 20px;
+   left: 20px;
+   font-size: 25px;
+   color: #fff;
+   font-weight: bold;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* 점프하는 캐릭터와 장애물의 크리스마스 테마 디자인 */
+.dino {
+   width: 40px;
+   height: 60px;
+   background-color: #ff6347;
+   border-radius: 5px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+   position: absolute;
+   bottom: 20px;
+   transition: transform 0.3s ease;
+}
+
+.dino.jump {
+   transform: translateY(-100px);
+}
+
+.dino.landing {
+   transform: translateY(0);
+}
+
+.obstacle {
+   width: 40px;
+   height: 40px;
+   background-color: #28a745;
+   border-radius: 50%;
+   position: absolute;
+   bottom: 20px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+   animation: moveObstacle 2s infinite linear;
+}
+
+@keyframes moveObstacle {
+   0% {
+      right: -50px;
+   }
+
+   100% {
+      right: 800px;
+   }
+}
