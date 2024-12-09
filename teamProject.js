@@ -6,6 +6,7 @@ const obstacleWidth = 20;
 const obstacleHeight = 30;
 const gravity = 0.6;
 const jumpStrength = -12;
+const dinoImg = new Image();
 
 // 게임 변수
 let dino = {
@@ -16,6 +17,7 @@ let dino = {
   velocityY: 0,
   isJumping: false
 };
+dinoImg.src = "./img/dino.png" // 공룡 이미지 경로
 
 let obstacles = [];
 let score = 0;
@@ -95,6 +97,21 @@ function gameLoop() {
   ctx.fillStyle = "green";
   ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
 
+  //공룡 그리기 함수
+  function drawDino() {
+    if (dinoImg.complete && dinoImg.naturalHeight !== 0) {
+      // 이미지가 성공적으로 로드된 경우
+      ctx.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
+    } else {
+      // 이미지 로드 실패 시 기본 사각형 그리기
+      ctx.fillStyle = "green";
+      ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+    }
+  }
+  drawDino();
+
+  
+
   // 장애물 그리기
   ctx.fillStyle = "red";
   for (let i = 0; i < obstacles.length; i++) {
@@ -103,7 +120,7 @@ function gameLoop() {
 
   // 점수 표시
   ctx.fillStyle = "black";
-  ctx.font = "20px Arial";
+  ctx.font = "30px Arial";
   ctx.fillText(`Score: ${score}`, 20, 30);
 
   // 장애물 이동
@@ -126,5 +143,7 @@ document.addEventListener("keydown", (event) => {
 // 주기적으로 장애물 생성
 setInterval(createObstacle, 2000);
 
-// 게임 시작
-gameLoop();
+// 공룡 이미지 로드 후 게임 시작
+dinoImg.onload = function () {
+  gameLoop(); // 게임 루프 시작
+};
