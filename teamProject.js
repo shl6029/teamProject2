@@ -120,7 +120,7 @@ function gameLoop() {
 
   // 점수 표시
   ctx.fillStyle = "black";
-  ctx.font = "50px Arial";
+  ctx.font = "30px Arial";
   ctx.fillText(`Score: ${score}`, 20, 30);
 
   // 장애물 이동
